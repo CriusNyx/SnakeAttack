@@ -5,10 +5,10 @@ using System;
 using System.Linq;
 
 /// <summary>
-/// Custom Event System
+/// Custom Event System:
 ///     The custom even system, is responcible for broadcasting events to the game engine.
-///     This pattern allows the state of the game engine to be updated when the receiver of the messages are not known
-///     For example, An input controller class may be responcible for getting input from all key presses, and gamepad inputs.
+///     This pattern allows the state of the game engine to be updated when the receiver of the messages are not known.
+///     For example, an input controller class may be responcible for getting input from all key presses, and gamepad inputs.
 ///         The input controller will broadcast all of it's inputs into the event system.
 ///         The character controller class will be an event handler, and register itself with the event system.
 ///         Because it's register on the same channel as the input controller, it will receive all events from the input controller.
