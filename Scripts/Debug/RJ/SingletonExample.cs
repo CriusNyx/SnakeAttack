@@ -19,11 +19,19 @@ namespace Assets.Scripts.Debug.RJ
             }
         }
 
+        public static Camera gameCamera
+        {
+            get
+            {
+                return Instance.camera;
+            }
+        }
+
         new private Camera camera;
 
         private void Awake()
         {
-            Camera camera = FindObjectOfType<Camera>();
+            camera = FindObjectOfType<Camera>();
         }
 
         public static void DoThing()
