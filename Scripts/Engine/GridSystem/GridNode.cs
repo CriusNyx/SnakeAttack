@@ -10,6 +10,23 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
     private List<GridTransform> connectedTransforms = new List<GridTransform>();
 
     /// <summary>
+    /// Create a new gameobject, and add a grid node component to it.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public static GridNode Create(Vector3 position, string name = "GridNode")
+    {
+        return new GameObject(name).AddComponent<GridNode>().Init(position);
+    }
+
+    private GridNode Init(Vector3 position)
+    {
+        transform.position = position;
+        return this;
+    }
+
+    /// <summary>
     /// Gets a grid space from a direction, up, down, left of right
     /// </summary>
     /// <param name="direction"></param>
@@ -93,5 +110,58 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
             yield return top;
         if(bottom != null)
             yield return bottom;
+    }
+    
+    /// <summary>
+    /// Pass in an array of nodes to automatically link them
+    /// </summary>
+    /// <param name="nodes"></param>
+    public static void AutoLink(GridNode[,] nodes)
+    {
+        for(int x = 0; x < nodes.GetLength(0); x++)
+        {
+            for(int y = 0; y < nodes.GetLength(1); y++)
+            {
+                GridNode node = nodes[x, y];
+                if(node == null)
+                    continue;
+                try
+                {
+                    nodes[x - 1, y].right = node;
+                    node.left = nodes[x - 1, y];
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    nodes[x + 1, y].left = node;
+                    node.right= nodes[x + 1, y];
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    nodes[x, y - 1].top = node;
+                    node.bottom = nodes[x, y - 1];
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    nodes[x, y + 1].bottom = node;
+                    node.top = nodes[x, y + 1];
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
 }

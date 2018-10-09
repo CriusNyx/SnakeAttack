@@ -80,7 +80,7 @@ public class CEventSystem : MonoBehaviour
     /// <returns></returns>
     private static List<ICEventHandler> GetHandlerList(Enum category, Enum subcategory, bool create = false)
     {
-        var eventObjects = instance.eventObjects;
+        var eventObjects = Instance.eventObjects;
         if(!eventObjects.ContainsKey(category))
         {
             if(!create)
@@ -88,7 +88,7 @@ public class CEventSystem : MonoBehaviour
             eventObjects[category] = new Dictionary<Enum, List<ICEventHandler>>();
         }
         var cat = eventObjects[category];
-        if(!cat.ContainsKey(category))
+        if(!cat.ContainsKey(subcategory))
         {
             if(!create)
                 return null;
