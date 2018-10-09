@@ -10,6 +10,23 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
     private List<GridTransform> connectedTransforms = new List<GridTransform>();
 
     /// <summary>
+    /// Create a new gameobject, and add a grid node component to it.
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public static GridNode Create(Vector3 position, string name = "GridNode")
+    {
+        return new GameObject(name).AddComponent<GridNode>().Init(position);
+    }
+
+    private GridNode Init(Vector3 position)
+    {
+        transform.position = position;
+        return this;
+    }
+
+    /// <summary>
     /// Gets a grid space from a direction, up, down, left of right
     /// </summary>
     /// <param name="direction"></param>
