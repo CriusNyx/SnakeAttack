@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A singleton class to track the active grid system
+/// </summary>
 public class GridSystem : MonoBehaviourSingleton
 {
     static GridSystem Instance

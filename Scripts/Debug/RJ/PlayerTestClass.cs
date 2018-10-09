@@ -8,6 +8,8 @@ public class PlayerTestClass : MonoBehaviour
     GameObject graphic;
     LinearTweener movementTweener;
     GridTransform gridTrasnform;
+    List<GameObject> tail = new List<GameObject>();
+    int targetCount = 20;
 
     private void Start()
     {
@@ -27,27 +29,70 @@ public class PlayerTestClass : MonoBehaviour
         movementTweener.target = gridTrasnform.Target;
         if(movementTweener.IsDone())
         {
-            gridTrasnform.MoveTo(gridTrasnform.CurrentNode.GetFromDirection(currentDirection));
+            GridNode currentNode = gridTrasnform.CurrentNode;
+            if(gridTrasnform.MoveTo(currentNode.GetFromDirection(currentDirection)))
+            {
+                foreach(var tailPiece in tail)
+                {
+                    GridTransform g = tailPiece.GetComponent<GridTransform>();
+                    GridNode temp = g.CurrentNode;
+                    g.MoveTo(currentNode);
+                    currentNode = temp;
+                }
+                if(tail.Count < targetCount)
+                {
+                    GameObject newPeice = CreateTailPiece();
+                    tail.Add(newPeice);
+                    newPeice.GetComponent<GridTransform>().Warp(currentNode);
+                    newPeice.transform.position = newPeice.GetComponent<GridTransform>().Target;
+                }
+            }
         }
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if(currentDirection != Direction.right)
                 currentDirection = Direction.left;
         }
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        else if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             if(currentDirection != Direction.left)
                 currentDirection = Direction.right;
         }
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        else if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             if(currentDirection != Direction.down)
                 currentDirection = Direction.up;   
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             if(currentDirection != Direction.up)
                 currentDirection = Direction.down;
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            targetCount += 20;
+        }
+    }
+    private GameObject CreateTailPiece()
+    {
+        GameObject output = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var gTransform = output.AddComponent<GridTransform>();
+        gTransform.Events = new GridEventHandlers(OnCollision: KillMe);
+        var tweener = output.AddComponent<LinearTweener>();
+        tweener.autoTarget = () => gTransform.Target;
+        tweener.speed = this.movementTweener.speed;
+        return output;
+    }
+
+    private void KillMe(GridTransform other)
+    {
+        if(other.GetComponent<PlayerTestClass>() != null)
+        {
+            Destroy(gameObject);
+            foreach(var t in tail)
+            {
+                Destroy(t);
+            }
         }
     }
 }
