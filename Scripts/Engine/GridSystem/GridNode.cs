@@ -26,6 +26,23 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
         return this;
     }
 
+    public GridNode GetFromDirection(Direction direction)
+    {
+        switch(direction)
+        {
+            case Direction.left:
+                return left;
+            case Direction.right:
+                return right;
+            case Direction.up:
+                return top;
+            case Direction.down:
+                return bottom;
+            default:
+                return null;
+        }
+    }
+
     /// <summary>
     /// Gets a grid space from a direction, up, down, left of right
     /// </summary>
@@ -35,13 +52,13 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
     public GridNode GetFromDirection(Vector2 direction, bool recoverFromError = false)
     {
         if(direction == Vector2.left)
-            return left;
+            return GetFromDirection(Direction.left);
         else if(direction == Vector2.right)
-            return right;
+            return GetFromDirection(Direction.right);
         else if(direction == Vector2.up)
-            return top;
+            return GetFromDirection(Direction.up);
         else if(direction == Vector2.down)
-            return bottom;
+            return GetFromDirection(Direction.down);
         else if(recoverFromError)
             return null;
         else
