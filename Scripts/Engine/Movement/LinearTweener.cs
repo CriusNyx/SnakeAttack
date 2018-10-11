@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Attach this to a game object.
@@ -18,6 +19,11 @@ public class LinearTweener : MonoBehaviour
     public float speed = 1f;
 
     /// <summary>
+    /// Assign this to make the component automatically follow something
+    /// </summary>
+    public Func<Vector3> autoTarget;
+
+    /// <summary>
     /// Returns true if the game object has reached it's target.
     /// </summary>
     /// <returns></returns>
@@ -31,6 +37,8 @@ public class LinearTweener : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if(autoTarget != null)
+            target = autoTarget();
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 }
