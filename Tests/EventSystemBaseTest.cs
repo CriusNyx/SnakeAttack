@@ -16,20 +16,20 @@ public class EventSystemBaseTest {
 
         //create an event, add it to the system, and check the count
         TestEventObject testEvent = new TestEventObject();
-        CEventSystem.AddEventHandler(category.category, category.category, testEvent);
+        CEventSystem.AddEventHandler(category.category, category.subcategory, testEvent);
         Assert.True(CEventSystem.Count == 1);
 
         //Check the state of the test class after broadcasting a set true, set false, and foo event
         Assert.True(!testEvent.State);
-        CEventSystem.BroadcastEvent(category.category, category.category, new SetTrueEvent());
+        CEventSystem.BroadcastEvent(category.category, category.subcategory, new SetTrueEvent());
         Assert.True(testEvent.State);
-        CEventSystem.BroadcastEvent(category.category, category.category, new SetFalseEvent());
+        CEventSystem.BroadcastEvent(category.category, category.subcategory, new SetFalseEvent());
         Assert.True(!testEvent.State);
-        CEventSystem.BroadcastEvent(category.category, category.category, new FooEvent());
+        CEventSystem.BroadcastEvent(category.category, category.subcategory, new FooEvent());
         Assert.True(!testEvent.State);
 
         //remove the event, check the count of the system.
-        CEventSystem.RemoveEventHandler(category.category, category.category, testEvent);
+        CEventSystem.RemoveEventHandler(category.category, category.subcategory, testEvent);
         Assert.True(CEventSystem.Count == 0);
     }
 
@@ -71,5 +71,6 @@ public class EventSystemBaseTest {
     private enum category
     {
         category,
+        subcategory
     }
 }

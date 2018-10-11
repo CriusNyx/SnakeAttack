@@ -90,4 +90,16 @@ public class GridTransform : MonoBehaviour
         }
         return false;
     }
+
+    /// <summary>
+    /// Move this gameObject to the adjacent grid space in the specified direction
+    /// Retrusn true if the move was successful
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    public bool Move(Direction direction)
+    {
+        GridNode next = CurrentNode.GetFromDirection(direction);
+        return MoveTo(next);
+    }
 }
