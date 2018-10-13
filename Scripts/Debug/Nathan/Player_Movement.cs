@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour {
     //Nathan Haberland
-
-
-	// Use this for initialization
-	void Start () {
+    private GridTransform gridTransform;
+    private List<GridNode> grid;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
