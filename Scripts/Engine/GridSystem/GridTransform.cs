@@ -99,6 +99,10 @@ public class GridTransform : MonoBehaviour
     /// <returns></returns>
     public bool Move(Direction direction)
     {
+        if(CurrentNode == null)
+        {
+            throw new System.Exception("Cannot preform move because the gridTransform is not currently attached to a grid node.\nUse gridTransform.Warp(GridSystem.GetNode(x, y)) to move the entity to the grid");
+        }
         GridNode next = CurrentNode.GetFromDirection(direction);
         return MoveTo(next);
     }

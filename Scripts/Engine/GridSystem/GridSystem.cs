@@ -16,15 +16,18 @@ public class GridSystem : MonoBehaviourSingleton
     }
 
     const int width = 100;
+    private GameObject parent;
     GridNode[,] gridNodes = new GridNode[width, width];
 
     private void Awake()
     {
+        parent = new GameObject("Grid");
         for(int x = 0; x < width; x++)
         {
             for(int y = 0; y < width; y++)
             {
                 GridNode node = new GameObject("GridNode(" + x + "," + y + ")").AddComponent<GridNode>();
+                node.transform.parent = parent.transform;
                 node.transform.position = new Vector3(x, y);
                 gridNodes[x, y] = node;
             }
