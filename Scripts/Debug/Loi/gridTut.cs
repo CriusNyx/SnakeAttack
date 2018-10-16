@@ -4,20 +4,25 @@ using UnityEngine;
 using System.Linq;
 
 public class gridTut : MonoBehaviour {
+
+
     private GridTransform gridTransform;
     private List<GridNode> grid;
-    // Use this for initialization
+    
+
     private void Start () {
-        grid = MoveTut.CreateAGrid().ToList();
+        //grid = MoveTut.CreateAGrid().ToList();
         gridTransform = gameObject.AddComponent<GridTransform>();
 
-        gridTransform.Warp(grid[0]);
+        gridTransform.Warp(GridSystem.GetNode(0,0));
 
     }
 	
 	// Update is called once per frame
 	private void Update () {
+        
         GridNode currentNode = gridTransform.CurrentNode;
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
 
@@ -45,5 +50,6 @@ public class gridTut : MonoBehaviour {
         transform.position = gridTransform.Target;
 	}
 }
+
 
 

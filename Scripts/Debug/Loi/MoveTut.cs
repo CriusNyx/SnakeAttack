@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class MoveTut : MonoBehaviour {
 
 	public static IEnumerable<GridNode> CreateAGrid()
     {
         //initialize the array for linking, and the list for output
-        int width = 100, height = 100;
+        int width = 25, height = 25;
         GridNode[,] gridNodes = new GridNode[width, height];
         List<GridNode> output = new List<GridNode>();
 
