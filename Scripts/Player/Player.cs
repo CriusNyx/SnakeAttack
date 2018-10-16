@@ -34,8 +34,8 @@ public class Player : MonoBehaviour, ICEventHandler
 
     private void Awake()
     {
-        CEventSystem.AddEventHandler(CEventSystem.Catagory.input, CEventSystem.InputSubcatagories.player1, this);
-        CEventSystem.AddEventHandler(CEventSystem.Catagory.gameState, CEventSystem.Catagory.none, this);
+        CEventSystem.AddEventHandler(EventChannel.input, EventSubChannel.player1, this);
+        CEventSystem.AddEventHandler(EventChannel.gameState, EventSubChannel.none, this);
         instance = this;
     }
 
@@ -56,8 +56,8 @@ public class Player : MonoBehaviour, ICEventHandler
 
     private void OnDestroy()
     {
-        CEventSystem.RemoveEventHandler(CEventSystem.Catagory.input, CEventSystem.InputSubcatagories.player1, this);
-        CEventSystem.RemoveEventHandler(CEventSystem.Catagory.gameState, CEventSystem.InputSubcatagories.none, this);
+        CEventSystem.RemoveEventHandler(EventChannel.input, EventSubChannel.player1, this);
+        CEventSystem.RemoveEventHandler(EventChannel.gameState, EventSubChannel.none, this);
 
         SnakeDestroyer.Create(gameObject, tailPieces.Select(x => x.gameObject));
         instance = null;
@@ -140,7 +140,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         if(Input.GetKeyDown(KeyCode.K))
         {
-            CEventSystem.BroadcastEvent(CEventSystem.Catagory.gameState, CEventSystem.Catagory.none, new GrowEvent(10));
+            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(10));
         }
     }
 

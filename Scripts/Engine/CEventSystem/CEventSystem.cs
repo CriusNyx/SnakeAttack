@@ -121,22 +121,6 @@ public class CEventSystem : MonoBehaviourSingleton
             foreach(var handler in handlerList)
                 handler.AcceptEvent(e);
     }
-
-    public enum Catagory
-    {
-        none,
-        input,
-        gameState
-    }
-
-    public enum InputSubcatagories
-    {
-        none,
-        player1,
-        player2,
-        player3,
-        player4
-    }
 }
 
 /// <summary>
@@ -154,4 +138,20 @@ public abstract class CEvent
 public interface ICEventHandler
 {
     void AcceptEvent(CEvent e);
+}
+
+public enum EventChannel
+{
+    none,
+    input,
+    gameState
+}
+
+public enum EventSubChannel
+{
+    none,
+    player1,
+    player2,
+    player3,
+    player4
 }

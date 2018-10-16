@@ -35,7 +35,7 @@ public class TailPiece : MonoBehaviour
     {
         if(other.GetComponent<Player>() != null)
         {
-            CEventSystem.BroadcastEvent(CEventSystem.Catagory.gameState, CEventSystem.Catagory.none, new GameOverEvent());
+            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GameOverEvent());
         }
     }
 

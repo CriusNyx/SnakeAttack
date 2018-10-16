@@ -47,6 +47,6 @@ public class PlayerKeyboardController : MonoBehaviour
 
     private void BroadcastDirectionEvent(Direction direction)
     {
-        CEventSystem.BroadcastEvent(CEventSystem.Catagory.input, CEventSystem.InputSubcatagories.player1, new DirectionEvent(direction));
+        CEventSystem.BroadcastEvent(EventChannel.input, EventSubChannel.player1, new DirectionEvent(direction));
     }
 }
