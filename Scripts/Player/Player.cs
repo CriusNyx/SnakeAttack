@@ -7,6 +7,16 @@ using System.Linq;
 
 public class Player : MonoBehaviour, ICEventHandler
 {
+    //static fields
+    private static Player instance;
+    public static Player Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     //Dependant components
     GridTransform gridTransform;
     PlayerKeyboardController keyboardController;
@@ -17,7 +27,7 @@ public class Player : MonoBehaviour, ICEventHandler
     Direction direction = Direction.up;
     int growCount = 0;
     List<TailPiece> tailPieces = new List<TailPiece>();
-    public float speed = 10f;
+    public float speed = 100f;
 
 
 
@@ -26,6 +36,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         CEventSystem.AddEventHandler(CEventSystem.Catagory.input, CEventSystem.InputSubcatagories.player1, this);
         CEventSystem.AddEventHandler(CEventSystem.Catagory.gameState, CEventSystem.Catagory.none, this);
+        instance = this;
     }
 
     private void Start()
@@ -49,6 +60,7 @@ public class Player : MonoBehaviour, ICEventHandler
         CEventSystem.RemoveEventHandler(CEventSystem.Catagory.gameState, CEventSystem.InputSubcatagories.none, this);
 
         SnakeDestroyer.Create(gameObject, tailPieces.Select(x => x.gameObject));
+        instance = null;
     }
 
     private void Update()
@@ -175,14 +187,18 @@ public class Player : MonoBehaviour, ICEventHandler
 
     public void AcceptEvent(CEvent e)
     {
+        //push input events to the input buffer
         if(e is InputEvent)
         {
             inputBuffer.Enqueue(e as InputEvent);
         }
+        //upon receiving game over, destoy this
+        //Normally, the game object would be destroyed, but that behaviour is taken over by the snake destroyer
         if(e is GameOverEvent)
         {
             Destroy(this);
         }
+        //Execute the grop method when a grow event is received.
         if(e is GrowEvent)
         {
             var grow = e as GrowEvent;
