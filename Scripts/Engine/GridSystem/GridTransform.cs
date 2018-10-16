@@ -71,6 +71,29 @@ public class GridTransform : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns true if the character is able to move to the specified node.
+    /// </summary>
+    /// <param name="gridNode"></param>
+    /// <returns></returns>
+    public bool CanMoveTo(GridNode gridNode)
+    {
+        return currentNode == null || currentNode.IsAdjacent(gridNode);
+    }
+
+    /// <summary>
+    /// Returns true if the character is able to move in the specified direction.
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <returns></returns>
+    public bool CanMoveTo(Direction direction)
+    {
+        if(currentNode == null)
+            return false;
+        GridNode next = CurrentNode.GetFromDirection(direction);
+        return CanMoveTo(next);
+    }
+
+    /// <summary>
     /// Move this gameObject to a new grid space
     /// Returns true is the gameObject is able to complete the move
     /// </summary>
@@ -80,7 +103,7 @@ public class GridTransform : MonoBehaviour
     {
         if(gridNode == null)
             return false;
-        if(currentNode == null || currentNode.IsAdjacent(gridNode))
+        if(CanMoveTo(gridNode))
         {
             if(currentNode != null)
                 currentNode.RemoveTransform(this);

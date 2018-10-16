@@ -15,30 +15,8 @@ using System.Linq;
 ///         The character controller class will be an event handler, and register itself with the event system.
 ///         Because it's register on the same channel as the input controller, it will receive all events from the input controller.
 /// </summary>
-public class CEventSystem : MonoBehaviour
+public class CEventSystem : MonoBehaviourSingleton
 {
-
-
-    /// <summary>
-    /// Gets, or creates an instance of the event system
-    /// Event system was implemented as a monobehaviour so that the event system would reset itself whenever a new scene is loaded
-    /// </summary>
-    private static CEventSystem Instance
-    {
-        get
-        {
-            if(instance == null)
-                instance = FindObjectOfType<CEventSystem>();
-            if(instance == null)
-                instance = new GameObject("Event System").AddComponent<CEventSystem>();
-            return instance;
-        }
-    }
-    /// <summary>
-    /// A private reference to the current event system. This should only be accessed by Instance
-    /// </summary>
-    private static CEventSystem instance;
-
     /// <summary>
     /// Sum up the number of event handlers currently in the system.
     /// </summary>
@@ -47,7 +25,7 @@ public class CEventSystem : MonoBehaviour
         get
         {
             var output = 0;
-            var dic = Instance.eventObjects;
+            var dic = GetInstance<CEventSystem>().eventObjects;
             foreach(var subdic in dic)
             {
                 foreach(var list in subdic.Value)
@@ -80,7 +58,7 @@ public class CEventSystem : MonoBehaviour
     /// <returns></returns>
     private static List<ICEventHandler> GetHandlerList(Enum category, Enum subcategory, bool create = false)
     {
-        var eventObjects = Instance.eventObjects;
+        var eventObjects = GetInstance<CEventSystem>().eventObjects;
         if(!eventObjects.ContainsKey(category))
         {
             if(!create)
@@ -142,6 +120,22 @@ public class CEventSystem : MonoBehaviour
         if(handlerList != null)
             foreach(var handler in handlerList)
                 handler.AcceptEvent(e);
+    }
+
+    public enum Catagory
+    {
+        none,
+        input,
+        gameState
+    }
+
+    public enum InputSubcatagories
+    {
+        none,
+        player1,
+        player2,
+        player3,
+        player4
     }
 }
 
