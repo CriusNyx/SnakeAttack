@@ -77,7 +77,7 @@ public class GridTransform : MonoBehaviour
     /// <returns></returns>
     public bool CanMoveTo(GridNode gridNode)
     {
-        return currentNode == null || currentNode.IsAdjacent(gridNode);
+        return currentNode != null && currentNode.IsAdjacent(gridNode);
     }
 
     /// <summary>

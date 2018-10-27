@@ -1,0 +1,12 @@
+{
+    "name": "Editor",
+    "references": [
+        "Scripts"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

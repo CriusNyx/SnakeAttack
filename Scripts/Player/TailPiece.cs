@@ -21,6 +21,7 @@ public class TailPiece : MonoBehaviour
 
         gridTransform = gameObject.AddComponent<GridTransform>();
         gridTransform.Events = new GridEventHandlers(OnCollision: OnGridCollision);
+        gridTransform.Warp(leader.CurrentNode);
 
         tweener = gameObject.AddComponent<LinearTweener>();
         tweener.autoTarget = () => gridTransform.Target;
