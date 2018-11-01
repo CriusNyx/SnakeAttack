@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A singleton class to track the active grid system
+/// A singleton class make grids for debugging
 /// </summary>
 public class GridSystem : MonoBehaviourSingleton
 {

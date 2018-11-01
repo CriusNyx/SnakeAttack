@@ -7,7 +7,7 @@ public class MoveTut : MonoBehaviour {
 	public static IEnumerable<GridNode> CreateAGrid()
     {
         //initialize the array for linking, and the list for output
-        int width = 25, height = 25;
+        int width = 100, height = 100;
         GridNode[,] gridNodes = new GridNode[width, height];
         List<GridNode> output = new List<GridNode>();
 
@@ -34,15 +34,4 @@ public class MoveTut : MonoBehaviour {
     }
 
 
-
-
-
-	void Start () {
-		
-	}
-	
-	
-	void Update () {
-		
-	}
 }
