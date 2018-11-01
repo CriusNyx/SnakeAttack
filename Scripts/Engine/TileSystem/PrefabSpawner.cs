@@ -18,6 +18,7 @@ public class PrefabSpawner : MonoBehaviour
         if(gridTransform != null && node != null)
         {
             gridTransform.Warp(node);
+            newObject.transform.position = gridTransform.Target;
         }
     }
 

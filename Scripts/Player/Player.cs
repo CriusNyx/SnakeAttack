@@ -54,14 +54,13 @@ public class Player : MonoBehaviour, ICEventHandler
 
         GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
         quad.transform.SetParent(transform);
+        quad.transform.localPosition = Vector3.zero;
 
         keyboardController = gameObject.AddComponent<PlayerKeyboardController>();
         tweener = gameObject.AddComponent<LinearTweener>();
         //Set the auto target for the tweener
         tweener.autoTarget = () => gridTransform.Target;
-        tweener.speed = this.speed;
-
-        
+        tweener.speed = speed;
     }
 
     private void OnDestroy()

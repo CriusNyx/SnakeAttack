@@ -12,9 +12,9 @@ public class GenerateGrid
         GameObject grid = new GameObject("Grid");
         grid.AddComponent<Grid>();
 
-        CreateTilemap(grid, "Tilemap:1", 0);
-        CreateTilemap(grid, "Tilemap:2", 1);
-        CreateTilemap(grid, "Tilemap:3", 3);
+        CreateTilemap(grid, "Background", 0);
+        CreateTilemap(grid, "Main", 1);
+        CreateTilemap(grid, "Forground", 3);
         var collisionMap = CreateTilemap(grid, "Collision", 4);
         collisionMap.AddComponent<CollGenerator>();
     }
