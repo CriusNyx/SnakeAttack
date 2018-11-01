@@ -72,7 +72,7 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
     /// <returns></returns>
     public bool IsAdjacent(GridNode other)
     {
-        return this.Contains(other);
+        return other != null && (left == other || right == other || top == other || bottom == other);
     }
 
     /// <summary>
