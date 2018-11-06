@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +25,6 @@ public class AsymtoticTweener : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, target, movementRatio * Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, target, movementRatio * Time.deltaTime);
     }
 }

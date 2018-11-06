@@ -8,8 +8,8 @@ public class PrefabSpawner : MonoBehaviour
 
     private void Awake()
     {
-        int x = (int)transform.position.x;
-        int y = (int)transform.position.y;
+        int x = (int)(transform.position.x - 0.5f);
+        int y = (int)(transform.position.y - 0.5f);
 
         GridNode node = GridSystem.GetNode(x, y);
 
