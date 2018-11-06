@@ -39,6 +39,6 @@ public class LinearTweener : MonoBehaviour
     {
         if(autoTarget != null)
             target = autoTarget();
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, speed * Time.deltaTime);
     }
 }
