@@ -29,22 +29,22 @@ public class TutorialGridEntity : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             //move right
-            gridTransform.MoveTo(currentNode.right);
+            gridTransform.Move(Direction.right);
         }
         else if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             //move left
-            gridTransform.MoveTo(currentNode.left);
+            gridTransform.Move(Direction.left);
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             //move up
-            gridTransform.MoveTo(currentNode.top);
+            gridTransform.Move(Direction.up);
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             //move down
-            gridTransform.MoveTo(currentNode.bottom);
+            gridTransform.Move(Direction.down);
         }
 
         //Move the 3d position to the grid positions

@@ -48,16 +48,25 @@ public class Player : MonoBehaviour, ICEventHandler
     private void Start()
     {
         //Add dependant components
-        gridTransform = gameObject.AddComponent<GridTransform>();
+        gridTransform = gameObject.GetComponent<GridTransform>();
+        if(gridTransform == null)
+        {
+            gridTransform = gameObject.AddComponent<GridTransform>();
+
+            //Warp the player to the grid
+            var gridNode = GridSystem.GetNode(0, 0);
+            gridTransform.Warp(gridNode);
+        }
+
+        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        quad.transform.SetParent(transform);
+        quad.transform.localPosition = Vector3.zero;
+
         keyboardController = gameObject.AddComponent<PlayerKeyboardController>();
         tweener = gameObject.AddComponent<LinearTweener>();
         //Set the auto target for the tweener
         tweener.autoTarget = () => gridTransform.Target;
-        tweener.speed = this.speed;
-
-        //Warp the player to the grid
-        var gridNode = GridSystem.GetNode(0, 0);
-        gridTransform.Warp(gridNode);
+        tweener.speed = speed;
     }
 
     private void OnDestroy()
