@@ -27,7 +27,7 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
         }
         targetV = Vector3.zero;
         
-        targetV.z = -10;
+        targetV.z = -5;
         targetV += Ahead() + Zoom();
         //tween.movementRatio = speed;
         //tween.target = targetV;
@@ -53,6 +53,9 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
 
     Vector3 Zoom() {
         Vector3 zoom = Vector3.zero;
+        if (target.GrowCount > 0) {
+            zoom = Vector3.back * (10 / (target.GrowCount + 2) - 10);
+        }
         return zoom;
     }
 
