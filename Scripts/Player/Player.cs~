@@ -26,12 +26,13 @@ public class Player : MonoBehaviour, ICEventHandler
     Queue<InputEvent> inputBuffer = new Queue<InputEvent>();
     public Direction direction = Direction.up;
     int growCount = 0;
-    public int GrowCount {
+    List<TailPiece> tailPieces = new List<TailPiece>();
+    public int TailCount {
         get {
-            return growCount;
+            return tailPieces.Count;
         }
     }
-    List<TailPiece> tailPieces = new List<TailPiece>();
+
     public float speed = 100f;
 
 
@@ -145,7 +146,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         if(Input.GetKeyDown(KeyCode.K))
         {
-            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(10));
+            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(1));
         }
     }
 

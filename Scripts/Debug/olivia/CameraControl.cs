@@ -15,7 +15,7 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
     }
     public Player target;
     public Vector3 targetV;
-    public Vector3 localPos = Vector3.back;
+    public Vector3 localPos = Vector3.back * 10;
     const float speed = 0.95f;
     void LateUpdate()
     {
@@ -53,9 +53,11 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
 
     Vector3 Zoom() {
         Vector3 zoom = Vector3.zero;
-        if (target.GrowCount > 0) {
-            zoom = Vector3.back * (10 / (target.GrowCount + 2) - 15);
+        if (target.TailCount > 0) {
+            zoom = Vector3.forward * ((100 / (target.TailCount + 10)) - 20);
+            Debug.Log("zoom = " + zoom);
         }
+        
         return zoom;
     }
 
