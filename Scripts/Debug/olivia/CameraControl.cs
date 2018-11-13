@@ -7,15 +7,13 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
     ///tips and things to remember
     ///get player position using Player.Instance
     ///but use null check to prevent race condition with player and camera
-    AsymtoticTweener tween;
     void Awake()
     {
         CEventSystem.AddEventHandler(EventChannel.gameState, EventSubChannel.none, this);
-        //tween = gameObject.AddComponent<AsymtoticTweener>();
     }
     public Player target;
     public Vector3 targetV;
-    public Vector3 localPos = Vector3.back;
+    public Vector3 localPos = Vector3.back * 10;
     const float speed = 0.95f;
     void LateUpdate()
     {
@@ -27,10 +25,8 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
         }
         targetV = Vector3.zero;
         
-        targetV.z = -5;
+        targetV.z = -10;
         targetV += Ahead() + Zoom();
-        //tween.movementRatio = speed;
-        //tween.target = targetV;
         localPos = Vector3.Lerp(localPos, targetV, speed * Time.deltaTime);
         transform.position = localPos + target.transform.position;
         
@@ -53,9 +49,10 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
 
     Vector3 Zoom() {
         Vector3 zoom = Vector3.zero;
-        if (target.GrowCount > 0) {
-            zoom = Vector3.back * (10 / (target.GrowCount + 2) - 10);
+        if (target.TailCount > 0) {
+            zoom = Vector3.forward * ((100 / (target.TailCount + 10)) - 20);
         }
+        
         return zoom;
     }
 
