@@ -214,4 +214,12 @@ public class Player : MonoBehaviour, ICEventHandler
             Grow(grow.growCount);
         }
     }
+    //enemy touch death
+   // void OnCollisionEnter(Collision col)
+    //{
+    //  if (col.gameObject.tag.Equals("enemy"))
+        //{
+          //  gameObject.SetActive(false);
+        //}
+    //}
 }
