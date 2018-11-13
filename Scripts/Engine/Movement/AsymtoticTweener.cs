@@ -23,7 +23,7 @@ public class AsymtoticTweener : MonoBehaviour
     /// <summary>
     /// Applies the movement each frame.
     /// </summary>
-    private void LateUpdate()
+    private void Update()
     {
         transform.localPosition = Vector3.Lerp(transform.localPosition, target, movementRatio * Time.deltaTime);
     }
