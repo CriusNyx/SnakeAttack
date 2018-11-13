@@ -35,7 +35,7 @@ public class LinearTweener : MonoBehaviour
     /// <summary>
     /// Applies the movement each frame.
     /// </summary>
-    void LateUpdate()
+    void Update()
     {
         if(autoTarget != null)
             target = autoTarget();
