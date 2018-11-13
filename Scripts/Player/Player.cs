@@ -88,6 +88,11 @@ public class Player : MonoBehaviour, ICEventHandler
                 UpdateGrowing();
                 UpdateMovement();
             }
+            else if (direction != Direction.none)
+            {
+                direction = Direction.none;
+                SoundController.PlaySound(transform.position, "Sounds/wallbang");
+            }
         }
         UpdateDebug();
     }
@@ -179,6 +184,11 @@ public class Player : MonoBehaviour, ICEventHandler
     /// <returns></returns>
     private bool SetDirection(Direction direction)
     {
+        if(this.direction == Direction.none)
+        {
+            this.direction = direction;
+            return true;
+        }
         if(this.direction == Direction.up && direction != Direction.down)
         {
             this.direction = direction;

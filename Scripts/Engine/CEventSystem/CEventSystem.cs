@@ -144,7 +144,8 @@ public enum EventChannel
 {
     none,
     input,
-    gameState
+    gameState,
+    sound
 }
 
 public enum EventSubChannel
