@@ -27,8 +27,10 @@ public class Player : MonoBehaviour, ICEventHandler
     public Direction direction = Direction.up;
     int growCount = 0;
     List<TailPiece> tailPieces = new List<TailPiece>();
-    public int TailCount {
-        get {
+    public int TailCount
+    {
+        get
+        {
             return tailPieces.Count;
         }
     }
@@ -67,6 +69,9 @@ public class Player : MonoBehaviour, ICEventHandler
         //Set the auto target for the tweener
         tweener.autoTarget = () => gridTransform.Target;
         tweener.speed = speed;
+
+        //Add camera system
+        GameObject.Find("Main Camera").AddComponent<CameraControl>();
     }
 
     private void OnDestroy()
@@ -88,7 +93,7 @@ public class Player : MonoBehaviour, ICEventHandler
                 UpdateGrowing();
                 UpdateMovement();
             }
-            else if (direction != Direction.none)
+            else if(direction != Direction.none)
             {
                 direction = Direction.none;
                 SoundController.PlaySound(transform.position, "Sounds/wallbang");
@@ -116,7 +121,7 @@ public class Player : MonoBehaviour, ICEventHandler
                     break;
                 }
                 //If this event can't be executed, reenqueue it so that it can be executed next frame
-                if (!(directionEvent is ReenqueuedDirectionEvent))
+                if(!(directionEvent is ReenqueuedDirectionEvent))
                 {
                     //The type needs to be changed to prevent an infinate loop
                     inputBuffer.Enqueue(new ReenqueuedDirectionEvent(directionEvent));
