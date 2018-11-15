@@ -32,6 +32,4 @@ public class MoveTut : MonoBehaviour {
         return output;
 
     }
-
-
 }

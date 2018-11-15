@@ -48,25 +48,16 @@ public class Player : MonoBehaviour, ICEventHandler
     private void Start()
     {
         //Add dependant components
-        gridTransform = gameObject.GetComponent<GridTransform>();
-        if (gridTransform == null)
-        {
-            gridTransform = gameObject.AddComponent<GridTransform>();
-
-            //Warp the player to the grid
-            var gridNode = GridSystem.GetNode(0, 0);
-            gridTransform.Warp(gridNode);
-        }
-
-        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        quad.transform.SetParent(transform);
-        quad.transform.localPosition = Vector3.zero;
-
+        gridTransform = gameObject.AddComponent<GridTransform>();
         keyboardController = gameObject.AddComponent<PlayerKeyboardController>();
         tweener = gameObject.AddComponent<LinearTweener>();
         //Set the auto target for the tweener
         tweener.autoTarget = () => gridTransform.Target;
-        tweener.speed = speed;
+        tweener.speed = this.speed;
+
+        //Warp the player to the grid
+        var gridNode = GridSystem.GetNode(0, 0);
+        gridTransform.Warp(gridNode);
     }
 
     private void OnDestroy()
@@ -76,9 +67,7 @@ public class Player : MonoBehaviour, ICEventHandler
 
         SnakeDestroyer.Create(gameObject, tailPieces.Select(x => x.gameObject));
         instance = null;
-
     }
-
 
     private void Update()
     {
@@ -224,12 +213,4 @@ public class Player : MonoBehaviour, ICEventHandler
             Grow(grow.growCount);
         }
     }
-    //enemy touch death
-   //void OnCollisionEnter(Collision col)
-    //{
-      //if (col.gameObject.tag.Equals("enemy"))
-        //{
-          //  gameObject.SetActive(false);
-        //}
-   // }
 }
