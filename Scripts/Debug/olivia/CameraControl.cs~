@@ -50,7 +50,7 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
     Vector3 Zoom() {
         Vector3 zoom = Vector3.zero;
         if (target.TailCount > 0) {
-            zoom = Vector3.forward * ((100 / (target.TailCount + 10)) - 20);
+            zoom = Vector3.forward * ((50 / (target.TailCount + 5)) - 20);
         }
         
         return zoom;
