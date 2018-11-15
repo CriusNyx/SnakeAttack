@@ -51,7 +51,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         //Add dependant components
         gridTransform = gameObject.GetComponent<GridTransform>();
-        if(gridTransform == null)
+        if (gridTransform == null)
         {
             gridTransform = gameObject.AddComponent<GridTransform>();
 
@@ -81,7 +81,9 @@ public class Player : MonoBehaviour, ICEventHandler
 
         SnakeDestroyer.Create(gameObject, tailPieces.Select(x => x.gameObject));
         instance = null;
+
     }
+
 
     private void Update()
     {
@@ -237,4 +239,12 @@ public class Player : MonoBehaviour, ICEventHandler
             Grow(grow.growCount);
         }
     }
+    //enemy touch death
+   //void OnCollisionEnter(Collision col)
+    //{
+      //if (col.gameObject.tag.Equals("enemy"))
+        //{
+          //  gameObject.SetActive(false);
+        //}
+   // }
 }
