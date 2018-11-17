@@ -72,7 +72,7 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
     /// <returns></returns>
     public bool IsAdjacent(GridNode other)
     {
-        return this.Contains(other);
+        return other != null && (left == other || right == other || top == other || bottom == other);
     }
 
     /// <summary>
@@ -180,5 +180,17 @@ public class GridNode : MonoBehaviour, IEnumerable<GridNode>
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 ll = transform.position - (Vector3)Vector2.one * 0.5f;
+        Vector3 lr = ll + Vector3.right;
+        Vector3 ul = ll + Vector3.up;
+        Vector3 ur = lr + Vector3.up;
+        Gizmos.DrawLine(ll, lr);
+        Gizmos.DrawLine(ll, ul);
+        Gizmos.DrawLine(ul, ur);
+        Gizmos.DrawLine(lr, ur);
     }
 }

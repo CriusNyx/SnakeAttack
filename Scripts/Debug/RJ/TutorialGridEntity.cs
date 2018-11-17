@@ -12,13 +12,12 @@ public class TutorialGridEntity : MonoBehaviour
     {
         //Create a grid using the method created in part 1
         //This will be available on github
-        grid = MovementTutorial.CreateAGrid().ToList();
 
         //Add a grid transform to the object for grid movement
         gridTransform = gameObject.AddComponent<GridTransform>();
 
         //Warp the grid transform to the first space on the grid (lower left corner)
-        gridTransform.Warp(grid[0]);
+        gridTransform.Warp(GridSystem.GetNode(0, 0));
     }
 
     private void Update()
@@ -30,22 +29,22 @@ public class TutorialGridEntity : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             //move right
-            gridTransform.MoveTo(currentNode.right);
+            gridTransform.Move(Direction.right);
         }
         else if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             //move left
-            gridTransform.MoveTo(currentNode.left);
+            gridTransform.Move(Direction.left);
         }
         else if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             //move up
-            gridTransform.MoveTo(currentNode.top);
+            gridTransform.Move(Direction.up);
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             //move down
-            gridTransform.MoveTo(currentNode.bottom);
+            gridTransform.Move(Direction.down);
         }
 
         //Move the 3d position to the grid positions
