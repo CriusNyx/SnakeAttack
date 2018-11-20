@@ -27,8 +27,10 @@ public class Player : MonoBehaviour, ICEventHandler
     public Direction direction = Direction.up;
     int growCount = 0;
     List<TailPiece> tailPieces = new List<TailPiece>();
-    public int TailCount {
-        get {
+    public int TailCount
+    {
+        get
+        {
             return tailPieces.Count;
         }
     }
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         //Add dependant components
         gridTransform = gameObject.GetComponent<GridTransform>();
-        if(gridTransform == null)
+        if (gridTransform == null)
         {
             gridTransform = gameObject.AddComponent<GridTransform>();
 
@@ -67,6 +69,9 @@ public class Player : MonoBehaviour, ICEventHandler
         //Set the auto target for the tweener
         tweener.autoTarget = () => gridTransform.Target;
         tweener.speed = speed;
+
+        //Add camera system
+        GameObject.Find("Main Camera").AddComponent<CameraControl>();
     }
 
     private void OnDestroy()
@@ -76,7 +81,9 @@ public class Player : MonoBehaviour, ICEventHandler
 
         SnakeDestroyer.Create(gameObject, tailPieces.Select(x => x.gameObject));
         instance = null;
+
     }
+
 
     private void Update()
     {
@@ -87,6 +94,11 @@ public class Player : MonoBehaviour, ICEventHandler
             {
                 UpdateGrowing();
                 UpdateMovement();
+            }
+            else if(direction != Direction.none)
+            {
+                direction = Direction.none;
+                SoundController.PlaySound(transform.position, "Sounds/wallbang");
             }
         }
         UpdateDebug();
@@ -111,7 +123,7 @@ public class Player : MonoBehaviour, ICEventHandler
                     break;
                 }
                 //If this event can't be executed, reenqueue it so that it can be executed next frame
-                if (!(directionEvent is ReenqueuedDirectionEvent))
+                if(!(directionEvent is ReenqueuedDirectionEvent))
                 {
                     //The type needs to be changed to prevent an infinate loop
                     inputBuffer.Enqueue(new ReenqueuedDirectionEvent(directionEvent));
@@ -179,6 +191,11 @@ public class Player : MonoBehaviour, ICEventHandler
     /// <returns></returns>
     private bool SetDirection(Direction direction)
     {
+        if(this.direction == Direction.none)
+        {
+            this.direction = direction;
+            return true;
+        }
         if(this.direction == Direction.up && direction != Direction.down)
         {
             this.direction = direction;
@@ -222,4 +239,12 @@ public class Player : MonoBehaviour, ICEventHandler
             Grow(grow.growCount);
         }
     }
+    //enemy touch death
+   //void OnCollisionEnter(Collision col)
+    //{
+      //if (col.gameObject.tag.Equals("enemy"))
+        //{
+          //  gameObject.SetActive(false);
+        //}
+   // }
 }

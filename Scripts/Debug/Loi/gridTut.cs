@@ -110,6 +110,3 @@ public class gridTut : MonoBehaviour {
         
     }
 }
-
-
-

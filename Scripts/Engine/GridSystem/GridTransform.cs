@@ -129,4 +129,9 @@ public class GridTransform : MonoBehaviour
         GridNode next = CurrentNode.GetFromDirection(direction);
         return MoveTo(next);
     }
+
+    private void OnDestroy()
+    {
+        currentNode.RemoveTransform(this);
+    }
 }

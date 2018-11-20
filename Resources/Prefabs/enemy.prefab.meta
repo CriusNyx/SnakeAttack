@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Resources/PathAndObjects/PathAndObjects.prefab.meta
+guid: ea0d3e9d324862e4d87fa61098145a56
+=======
+guid: 212a7255a873cc54a90186b6a801c2fe
+>>>>>>> ef789b20c929a4ca62b9e41c6f2c2f8f8d3f2245:Resources/Prefabs/enemy.prefab.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
