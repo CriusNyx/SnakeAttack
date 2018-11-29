@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 70867297}
   - component: {fileID: 70867296}
-  - component: {fileID: 70867295}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -130,13 +129,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &70867295
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 70867294}
-  m_Enabled: 1
 --- !u!20 &70867296
 Camera:
   m_ObjectHideFlags: 0
@@ -44813,6 +44805,16 @@ Prefab:
     - target: {fileID: 4363426970391846, guid: 8ca4a68216e0e894db8082f3aa003adf, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114008157718248230, guid: 8ca4a68216e0e894db8082f3aa003adf,
+        type: 2}
+      propertyPath: snakeGrowCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114008157718248230, guid: 8ca4a68216e0e894db8082f3aa003adf,
+        type: 2}
+      propertyPath: nextLevel
+      value: Level2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ca4a68216e0e894db8082f3aa003adf, type: 2}
