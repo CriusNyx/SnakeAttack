@@ -89,6 +89,7 @@ public class GreenSlime : MonoBehaviour
 
     private IEnumerator SlimeAnimation()
     {
+        SoundController.PlaySound(transform.position, "Sounds/SlimeMove", false);
         float startTime = Time.time;
         float total = .1f;
         Vector3 startPos = new Vector3(0.5f, -0.5f, 0f);
@@ -198,7 +199,7 @@ public class GreenSlime : MonoBehaviour
 
         Player player = other.GetComponent<Player>();
         Destroy(gameObject);
-        CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(10));
+        CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(GameState.SnakeGrowCount));
         CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GameState.EnemyDestroyedEvent());
     }
 }

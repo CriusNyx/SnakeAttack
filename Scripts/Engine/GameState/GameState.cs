@@ -5,6 +5,14 @@ using UnityEngine;
 public class GameState : MonoBehaviour, ICEventHandler
 {
     int enemyCount = 0;
+    public int snakeGrowCount = 5;
+    public static int SnakeGrowCount
+    {
+        get
+        {
+            return FindObjectOfType<GameState>().snakeGrowCount;
+        }
+    }
 
     void Awake() {
         CEventSystem.AddEventHandler(EventChannel.gameState, EventSubChannel.none, this);

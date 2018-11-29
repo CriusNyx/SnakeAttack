@@ -51,7 +51,7 @@ public class Player : MonoBehaviour, ICEventHandler
     {
         //Add dependant components
         gridTransform = gameObject.GetComponent<GridTransform>();
-        if (gridTransform == null)
+        if(gridTransform == null)
         {
             gridTransform = gameObject.AddComponent<GridTransform>();
 
@@ -120,6 +120,7 @@ public class Player : MonoBehaviour, ICEventHandler
                 //if the event can be executed, break out of the while loop
                 if(SetDirection(directionEvent.direction))
                 {
+                    SoundController.PlaySound(transform.position, "Sounds/DirectionChange1", false);
                     break;
                 }
                 //If this event can't be executed, reenqueue it so that it can be executed next frame
@@ -165,10 +166,10 @@ public class Player : MonoBehaviour, ICEventHandler
 
     private void UpdateDebug()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(1));
-        }
+        //if(Input.GetKeyDown(KeyCode.K))
+        //{
+        //    CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(1));
+        //}
     }
 
 
@@ -191,6 +192,8 @@ public class Player : MonoBehaviour, ICEventHandler
     /// <returns></returns>
     private bool SetDirection(Direction direction)
     {
+        if(this.direction == direction)
+            return false;
         if(this.direction == Direction.none)
         {
             this.direction = direction;
@@ -240,11 +243,11 @@ public class Player : MonoBehaviour, ICEventHandler
         }
     }
     //enemy touch death
-   //void OnCollisionEnter(Collision col)
+    //void OnCollisionEnter(Collision col)
     //{
-      //if (col.gameObject.tag.Equals("enemy"))
-        //{
-          //  gameObject.SetActive(false);
-        //}
-   // }
+    //if (col.gameObject.tag.Equals("enemy"))
+    //{
+    //  gameObject.SetActive(false);
+    //}
+    // }
 }
