@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using GameStateEvents;
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour, ICEventHandler {
+public class CameraControl : MonoBehaviour, ICEventHandler
+{
     ///tips and things to remember
     ///get player position using Player.Instance
     ///but use null check to prevent race condition with player and camera
@@ -17,23 +18,32 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
     const float speed = 0.95f;
     void LateUpdate()
     {
-        if (target == null) {
+        if(target == null)
+        {
             target = Player.Instance;
         }
-        if (target == null) {
+        if(target == null)
+        {
             return;
         }
         targetV = Vector3.zero;
-        
+
         targetV.z = -10;
         targetV += Ahead() + Zoom();
         localPos = Vector3.Lerp(localPos, targetV, speed * Time.deltaTime);
         transform.position = localPos + target.transform.position;
-        
+
+        //Vector3 temp = transform.position;
+        //temp.x = Mathf.Round(temp.x * 32f);
+        //temp.y = Mathf.Round(temp.y * 32f);
+        //temp.z = Mathf.Round(temp.z * 32f);
+        //transform.position = temp / 32f + (Vector3.)(Vector2.one * 0.1f);
     }
-    Vector3 Ahead() {
+    Vector3 Ahead()
+    {
         Vector3 dist = Vector3.zero;
-        switch (target.direction) {
+        switch(target.direction)
+        {
             case Direction.up:
                 return Vector3.up * 2;
             case Direction.down:
@@ -47,18 +57,21 @@ public class CameraControl : MonoBehaviour, ICEventHandler {
         }
     }
 
-    Vector3 Zoom() {
-        Vector3 zoom = Vector3.zero;
-        if (target.TailCount >= 5) {
-            zoom = Vector3.forward * ((100 / (target.TailCount + 5)) - 20);
-        }
-        
+    Vector3 Zoom()
+    {
+        float value = Mathf.Max(target.TailCount, 5f);
+        //Vector3 zoom = Vector3.zero;
+        //if (target.TailCount >= 5) {
+        Vector3 zoom = Vector3.forward * ((100 / (value + 5)) - 20);
+        //}
+
         return zoom;
     }
 
     public void AcceptEvent(CEvent e)
     {
-        if (e is GameOverEvent) {
+        if(e is GameOverEvent)
+        {
             Destroy(this);
 
         }

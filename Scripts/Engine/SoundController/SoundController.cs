@@ -85,8 +85,10 @@ public class SoundController : MonoBehaviour, ICEventHandler
             gameObject.transform.position = position;
 
             AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = 1f;
             audioSource.loop = loop;
             audioSource.clip = clip;
+            audioSource.pitch = 1f + Random.Range(-0.2f, 0.2f);
 
             audioSource.Play();
 

@@ -447,7 +447,7 @@ RectTransform:
   m_GameObject: {fileID: 1302656768}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1.75, z: 2}
   m_Children:
   - {fileID: 1866430701}
   - {fileID: 1357603582}
@@ -478,8 +478,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 00487f7c7e3161c43aa4efd8fbedab5b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -635,8 +635,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press buttons and things will happen when you press those buttons *Write
-    Instructions Here*
+  m_Text: Your goal is to eat all slimes without running into yourself. Use the arrow
+    keys to move.
 --- !u!222 &1357603584
 CanvasRenderer:
   m_ObjectHideFlags: 0
