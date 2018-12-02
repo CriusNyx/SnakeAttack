@@ -322,8 +322,8 @@ public class Player : MonoBehaviour, ICEventHandler
                 yield return null;
             }
             currentScene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene("GameOverScene");
-            SceneManager.sceneLoaded += (x, y) => Load();
+            SceneManager.LoadScene(currentScene);
+            //SceneManager.sceneLoaded += (x, y) => Load();
         }
 
         private void Load()
