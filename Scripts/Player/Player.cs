@@ -4,6 +4,7 @@ using UnityEngine;
 using InputEvents;
 using GameStateEvents;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, ICEventHandler
 {
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour, ICEventHandler
     PlayerKeyboardController keyboardController;
     LinearTweener tweener;
 
+    Material headMat, bodyMat, tailMat;
+
     //Fields
     Queue<InputEvent> inputBuffer = new Queue<InputEvent>();
     public Direction direction = Direction.up;
@@ -37,6 +40,7 @@ public class Player : MonoBehaviour, ICEventHandler
 
     public float speed = 100f;
 
+    GameObject quad;
 
 
 
@@ -60,9 +64,21 @@ public class Player : MonoBehaviour, ICEventHandler
             gridTransform.Warp(gridNode);
         }
 
-        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/SnakeSprites");
+
+        quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
         quad.transform.SetParent(transform);
         quad.transform.localPosition = Vector3.zero;
+
+        headMat = new Material(Shader.Find("Unlit/Transparent"));
+        headMat.SetTexture("_MainTex", textureFromSprite(sprites[0]));
+        quad.GetComponent<MeshRenderer>().material = headMat;
+
+        bodyMat = new Material(Shader.Find("Unlit/Transparent"));
+        bodyMat.SetTexture("_MainTex", textureFromSprite(sprites[1]));
+
+        tailMat = new Material(Shader.Find("Unlit/Transparent"));
+        tailMat.SetTexture("_MainTex", textureFromSprite(sprites[2]));
 
         keyboardController = gameObject.AddComponent<PlayerKeyboardController>();
         tweener = gameObject.AddComponent<LinearTweener>();
@@ -72,6 +88,26 @@ public class Player : MonoBehaviour, ICEventHandler
 
         //Add camera system
         GameObject.Find("Main Camera").AddComponent<CameraControl>();
+
+        Grow();
+    }
+
+    public static Texture2D textureFromSprite(Sprite sprite)
+    {
+        if(sprite.rect.width != sprite.texture.width)
+        {
+            Texture2D newText = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+            Color[] newColors = sprite.texture.GetPixels((int)sprite.textureRect.x,
+                                                         (int)sprite.textureRect.y,
+                                                         (int)sprite.textureRect.width,
+                                                         (int)sprite.textureRect.height);
+            newText.SetPixels(newColors);
+            newText.Apply();
+            newText.filterMode = FilterMode.Point;
+            return newText;
+        }
+        else
+            return sprite.texture;
     }
 
     private void OnDestroy()
@@ -100,6 +136,21 @@ public class Player : MonoBehaviour, ICEventHandler
                 direction = Direction.none;
                 SoundController.PlaySound(transform.position, "Sounds/wallbang");
             }
+        }
+        switch(direction)
+        {
+            case Direction.down:
+                quad.transform.rotation = Quaternion.identity;
+                break;
+            case Direction.left:
+                quad.transform.rotation = Quaternion.Euler(0, 0, 270);
+                break;
+            case Direction.up:
+                quad.transform.rotation = Quaternion.Euler(0, 0, 180);
+                break;
+            case Direction.right:
+                quad.transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
         }
         UpdateDebug();
     }
@@ -147,6 +198,12 @@ public class Player : MonoBehaviour, ICEventHandler
         if(growCount > 0)
         {
             TailPiece tp = TailPiece.Create(this, tailPieces.Count > 0 ? tailPieces[tailPieces.Count - 1].GetComponent<GridTransform>() : gridTransform);
+            if(tailPieces.Count > 0)
+            {
+                TailPiece last = tailPieces.Last();
+                last.GetComponentInChildren<MeshRenderer>().material = bodyMat;
+            }
+            tp.GetComponentInChildren<MeshRenderer>().material = tailMat;
             tailPieces.Add(tp);
             growCount--;
         }
@@ -234,6 +291,7 @@ public class Player : MonoBehaviour, ICEventHandler
         if(e is GameOverEvent)
         {
             Destroy(this);
+            new GameObject("GameOverer").AddComponent<GameOverer>();
         }
         //Execute the grop method when a grow event is received.
         if(e is GrowEvent)
@@ -242,6 +300,43 @@ public class Player : MonoBehaviour, ICEventHandler
             Grow(grow.growCount);
         }
     }
+
+    
+
+    public class GameOverer : MonoBehaviour
+    {
+        int currentScene;
+
+        private void Start()
+        {
+            StartCoroutine(GameOver());
+            //Debug.Break();
+        }
+
+        private IEnumerator GameOver()
+        {
+            DontDestroyOnLoad(this);
+            float time = Time.time + 1f;
+            while(Time.time < time)
+            {
+                yield return null;
+            }
+            currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene("GameOverScene");
+            SceneManager.sceneLoaded += (x, y) => Load();
+        }
+
+        private void Load()
+        {
+            SceneManager.sceneLoaded -= (x, y) => Load();
+            if(SceneManager.GetActiveScene().buildIndex != currentScene)
+            {
+                SceneManager.LoadScene(currentScene);
+                Destroy(gameObject);
+            }
+        }
+    }
+
     //enemy touch death
     //void OnCollisionEnter(Collision col)
     //{

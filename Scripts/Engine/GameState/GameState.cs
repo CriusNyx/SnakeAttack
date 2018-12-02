@@ -31,12 +31,21 @@ public class GameState : MonoBehaviour, ICEventHandler
             enemyCount--;
             if(enemyCount == 0)
             {
-                CompleteLevel();
+                AllEnemies();
             }
+        }
+        if(e is WinLevelEvent)
+        {
+            CompleteLevel();
         }
     }
 
-    public void CompleteLevel()
+    private void AllEnemies()
+    {
+        Chest.EnableChest();
+    }
+
+    private void CompleteLevel()
     {
         GameObject levelCompleteText = new GameObject("Level_Complete_Text");
         TextMesh text = levelCompleteText.AddComponent<TextMesh>();
@@ -67,6 +76,11 @@ public class GameState : MonoBehaviour, ICEventHandler
     }
 
     public class EnemyDestroyedEvent : CEvent
+    {
+
+    }
+
+    public class WinLevelEvent : CEvent
     {
 
     }

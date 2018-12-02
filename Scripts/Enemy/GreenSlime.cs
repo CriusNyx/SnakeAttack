@@ -43,7 +43,7 @@ public class GreenSlime : MonoBehaviour
         tweener.speed = 10f;
         tweener.autoTarget = () => gridTransform.Target;
 
-        gridTransform.Warp(GridSystem.GetNode((int)transform.position.x, (int)transform.position.y));
+        //gridTransform.Warp(GridSystem.GetNode((int)transform.position.x, (int)transform.position.y));
 
         CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GameState.EnemySpawnEvent());
 
@@ -139,16 +139,20 @@ public class GreenSlime : MonoBehaviour
             MakeDecision();
 
         GridNode node = gridTransform.CurrentNode;
-        GridNode right = node.right;
-        GridNode up = node.top;
-        GridNode one = up.right;
+        if(node != null)
+        {
+            GridNode right = node.right;
+            GridNode up = node.top;
+            GridNode one = up.right;
 
-        if(gridRight.CurrentNode != right)
-            gridRight.Warp(right);
-        if(gridUp.CurrentNode != up)
-            gridUp.Warp(up);
-        if(gridOne.CurrentNode != one)
-            gridOne.Warp(one);
+
+            if(gridRight.CurrentNode != right)
+                gridRight.Warp(right);
+            if(gridUp.CurrentNode != up)
+                gridUp.Warp(up);
+            if(gridOne.CurrentNode != one)
+                gridOne.Warp(one);
+        }
 
         animationParent.transform.localScale = Vector3.Lerp(new Vector3(1.1f, 0.9f, 1f), new Vector3(0.9f, 1.1f, 1f), Mathf.Pow(Mathf.Sin(Time.time * 3f), 2f));
     }
@@ -198,8 +202,11 @@ public class GreenSlime : MonoBehaviour
             return;
 
         Player player = other.GetComponent<Player>();
-        Destroy(gameObject);
-        CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(GameState.SnakeGrowCount));
-        CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GameState.EnemyDestroyedEvent());
+        if(player != null)
+        {
+            Destroy(gameObject);
+            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GrowEvent(GameState.SnakeGrowCount));
+            CEventSystem.BroadcastEvent(EventChannel.gameState, EventSubChannel.none, new GameState.EnemyDestroyedEvent());
+        }
     }
 }

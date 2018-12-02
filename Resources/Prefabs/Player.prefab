@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4974347349778342}
   - component: {fileID: 114549364711831916}
   - component: {fileID: 114559469735880758}
-  - component: {fileID: 65608651590687780}
   - component: {fileID: 81618679179725022}
   m_Layer: 0
   m_Name: Player
@@ -43,18 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65608651590687780
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1464581311739820}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81618679179725022
 AudioListener:
   m_ObjectHideFlags: 1
@@ -86,3 +73,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b73f7b2338fe44ba1c860a73debe79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentNode: {fileID: 0}
