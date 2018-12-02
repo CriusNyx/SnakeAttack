@@ -12,11 +12,11 @@ public class CollGenerator : MonoBehaviour
 
     public void Awake()
     {
-        PrivateInit();
+        //PrivateInit();
     }
 
     /// <summary>
-    /// If a coll generator exists in the scene, if generates it's grid, and returns it
+    /// If a coll generator exists in the scene, it generates it's grid, and returns it
     /// Else it returns null
     /// </summary>
     /// <returns></returns>

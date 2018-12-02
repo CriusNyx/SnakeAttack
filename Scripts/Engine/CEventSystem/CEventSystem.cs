@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 
 //Class Created by RJ
@@ -15,7 +16,7 @@ using System.Linq;
 ///         The character controller class will be an event handler, and register itself with the event system.
 ///         Because it's register on the same channel as the input controller, it will receive all events from the input controller.
 /// </summary>
-public class CEventSystem : MonoBehaviourSingleton
+public class CEventSystem : MonoBehaviour
 {
     /// <summary>
     /// Sum up the number of event handlers currently in the system.
@@ -25,7 +26,7 @@ public class CEventSystem : MonoBehaviourSingleton
         get
         {
             var output = 0;
-            var dic = GetInstance<CEventSystem>().eventObjects;
+            var dic = Instance.eventObjects;
             foreach(var subdic in dic)
             {
                 foreach(var list in subdic.Value)
@@ -50,6 +51,19 @@ public class CEventSystem : MonoBehaviourSingleton
             List<ICEventHandler>>>
                 eventObjects = new Dictionary<Enum, Dictionary<Enum, List<ICEventHandler>>>();
 
+    private static CEventSystem instance;
+    private static CEventSystem Instance
+    {
+        get
+        {
+            if(instance == null)
+                instance = FindObjectOfType<CEventSystem>();
+            if(instance == null)
+                instance = new GameObject("CEventSystem").AddComponent<CEventSystem>();
+            return instance;
+        }
+    }
+
     /// <summary>
     /// Search the event system for the requested list
     /// </summary>
@@ -58,7 +72,7 @@ public class CEventSystem : MonoBehaviourSingleton
     /// <returns></returns>
     private static List<ICEventHandler> GetHandlerList(Enum category, Enum subcategory, bool create = false)
     {
-        var eventObjects = GetInstance<CEventSystem>().eventObjects;
+        var eventObjects = Instance.eventObjects;
         if(!eventObjects.ContainsKey(category))
         {
             if(!create)
@@ -73,6 +87,17 @@ public class CEventSystem : MonoBehaviourSingleton
             cat[subcategory] = new List<ICEventHandler>();
         }
         return cat[subcategory];
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+        SceneManager.sceneLoaded += (x, y) => NewLevelInit();
+    }
+
+    private void NewLevelInit()
+    {
+        //eventObjects = new Dictionary<Enum, Dictionary<Enum, List<ICEventHandler>>>();
     }
 
     /// <summary>

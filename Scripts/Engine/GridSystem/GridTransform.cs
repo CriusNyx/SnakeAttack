@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class GridTransform : MonoBehaviour
 {
-    private GridNode currentNode;
+    public GridNode currentNode;
     /// <summary>
     /// The current grid node this gameObject is attached to
     /// </summary>
@@ -132,6 +132,7 @@ public class GridTransform : MonoBehaviour
 
     private void OnDestroy()
     {
-        currentNode.RemoveTransform(this);
+        if(currentNode != null)
+            currentNode.RemoveTransform(this);
     }
 }

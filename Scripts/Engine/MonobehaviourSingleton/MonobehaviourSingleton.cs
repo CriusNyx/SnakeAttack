@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Inherit from this class to create a new singleton type
@@ -22,5 +23,16 @@ public class MonoBehaviourSingleton : MonoBehaviour
             instances[type] = new GameObject(type.Name).AddComponent<T>();
         }
         return (T)instances[type];
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+        //SceneManager.sceneLoaded += (x, y) => Init();
+    }
+
+    private void Init()
+    {
+
     }
 }
