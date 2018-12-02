@@ -42,10 +42,13 @@ public class TailPiece : MonoBehaviour
 
     private void Update()
     {
-        Vector3 offset = (leader.transform.position - transform.position).normalized;
-        offset.x = Mathf.Round(offset.x);
-        offset.y = Mathf.Round(offset.y);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, -offset);
+        if(leader != null)
+        {
+            Vector3 offset = (leader.transform.position - transform.position).normalized;
+            offset.x = Mathf.Round(offset.x);
+            offset.y = Mathf.Round(offset.y);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, -offset);
+        }
     }
 
     public void UpdatePosition()
