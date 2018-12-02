@@ -11,14 +11,20 @@ public class PrefabSpawner : MonoBehaviour
         int x = (int)(transform.position.x - 0.5f);
         int y = (int)(transform.position.y - 0.5f);
 
-        GridNode node = GridSystem.GetNode(x, y);
-
         GameObject newObject = Instantiate(prefab);
         GridTransform gridTransform = newObject.GetComponent<GridTransform>();
-        if(gridTransform != null && node != null)
+        if(gridTransform != null)
         {
-            gridTransform.Warp(node);
-            newObject.transform.position = gridTransform.Target;
+            GridNode node = GridSystem.GetNode(x, y);
+            if(node != null)
+            {
+                gridTransform.Warp(node);
+                newObject.transform.position = gridTransform.Target;
+            }
+        }
+        else
+        {
+            newObject.transform.position = transform.position;
         }
     }
 

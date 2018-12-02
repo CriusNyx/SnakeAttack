@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// A singleton class make grids for debugging
 /// </summary>
-public class GridSystem : MonoBehaviourSingleton
+public class GridSystem : MonoBehaviour
 {
+    static GridSystem instance;
     static GridSystem Instance
     {
         get
         {
-            return GetInstance<GridSystem>();
+            if(instance == null)
+                instance = FindObjectOfType<GridSystem>();
+            if(instance == null)
+                instance = new GameObject("GridSystem").AddComponent<GridSystem>();
+            return instance;
         }
     }
 
@@ -24,7 +30,9 @@ public class GridSystem : MonoBehaviourSingleton
 
     private void Awake()
     {
+        //DontDestroyOnLoad(this);
         Init();
+        //SceneManager.sceneLoaded += (x, y) => { gridNodes = null; Init(); };
     }
 
     private void Init()
