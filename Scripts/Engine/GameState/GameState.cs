@@ -56,6 +56,7 @@ public class GameState : MonoBehaviour, ICEventHandler
         text.alignment = TextAlignment.Center;
         text.transform.SetParent(GameObject.Find("Main Camera").transform, false);
         text.transform.localPosition = Vector3.forward * 1f;
+        SoundController.PlaySound(Player.Instance.transform.position, "Resources/Sounds/VictorySound");
 
         StartCoroutine(LoadLevel());
     }
