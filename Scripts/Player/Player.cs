@@ -315,6 +315,7 @@ public class Player : MonoBehaviour, ICEventHandler
 
         private IEnumerator GameOver()
         {
+            SoundController.PlaySound(transform.position, "Sounds/DeathJingle");
             DontDestroyOnLoad(this);
             float time = Time.time + 1f;
             while(Time.time < time)

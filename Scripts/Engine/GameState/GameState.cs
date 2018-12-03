@@ -16,9 +16,10 @@ public class GameState : MonoBehaviour, ICEventHandler
         }
     }
 
-    void Awake() {
+    void Awake()
+    {
         CEventSystem.AddEventHandler(EventChannel.gameState, EventSubChannel.none, this);
-	}
+    }
 
     public void AcceptEvent(CEvent e)
     {
@@ -49,6 +50,7 @@ public class GameState : MonoBehaviour, ICEventHandler
     {
         GameObject levelCompleteText = new GameObject("Level_Complete_Text");
         TextMesh text = levelCompleteText.AddComponent<TextMesh>();
+        text.font = Resources.Load<Font>("Font/Crinkle");
         text.fontSize = 100;
         text.characterSize = 0.02f;
         text.anchor = TextAnchor.MiddleCenter;
@@ -57,17 +59,26 @@ public class GameState : MonoBehaviour, ICEventHandler
         text.transform.SetParent(GameObject.Find("Main Camera").transform, false);
         text.transform.localPosition = Vector3.forward * 1f;
 
+        text.GetComponent<MeshRenderer>().material = text.font.material;
+
         StartCoroutine(LoadLevel());
     }
 
     private IEnumerator LoadLevel()
     {
         float time = Time.time + 1f;
+        bool forceQuit = false;
         while(Time.time < time)
         {
+            if(this == null)
+            {
+                forceQuit = true;
+                break;
+            }
             yield return null;
         }
-        SceneManager.LoadScene(nextLevel);
+        if(!forceQuit)
+            SceneManager.LoadScene(nextLevel);
     }
 
     public class EnemySpawnEvent : CEvent

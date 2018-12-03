@@ -39,6 +39,8 @@ public class Chest : MonoBehaviour
         Material arrowMat = new Material(Shader.Find("Unlit/Transparent"));
         arrowMat.SetTexture("_MainTex", Resources.Load<Texture>("Sprites/Arrow"));
         aQuad.GetComponent<MeshRenderer>().material = arrowMat;
+
+        SoundController.PlaySound(Player.Instance.transform.position, "Sounds/ChestOpen");
     }
 
     private void LateUpdate()
@@ -50,13 +52,16 @@ public class Chest : MonoBehaviour
                 arrow.SetActive(!arrow.activeSelf);
             }
             Player player = Player.Instance;
-            Vector3 offset = transform.position - player.transform.position;
-            float dis = 3f;
-            if(offset.magnitude > dis)
+            if(player != null)
             {
-                offset = offset.normalized * dis;
-                arrow.transform.position = player.transform.position + offset;
-                arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, -offset);
+                Vector3 offset = transform.position - player.transform.position;
+                float dis = 3f;
+                if(offset.magnitude > dis)
+                {
+                    offset = offset.normalized * dis;
+                    arrow.transform.position = player.transform.position + offset;
+                    arrow.transform.rotation = Quaternion.LookRotation(Vector3.forward, -offset);
+                }
             }
             else
             {
