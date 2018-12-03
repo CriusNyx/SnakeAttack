@@ -3,7 +3,7 @@ guid: 645dc90377cbb7c4da726ebbf15f4e86
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 16
+  fontSize: 40
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
@@ -13,8 +13,8 @@ TrueTypeFontImporter:
   - Crinkle
   fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
+  fontRenderingMode: 2
+  ascentCalculationMode: 0
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
   userData: 

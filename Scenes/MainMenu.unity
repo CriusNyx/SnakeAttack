@@ -523,13 +523,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 594926485}
-        m_MethodName: LoadByIndex
-        m_Mode: 3
+      - m_Target: {fileID: 1302656768}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 10083676}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -825,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -833,20 +844,23 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_Font: {fileID: 12800000, guid: 645dc90377cbb7c4da726ebbf15f4e86, type: 3}
+    m_FontSize: 18
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Your goal is to eat all slimes without running into yourself. Use the arrow
-    keys to move. Collect the chest at the end to win!
+  m_Text: '-Use Arrows to Move
+
+    -Eat Slimes
+
+    -Get Treasure to Win'
 --- !u!222 &1357603584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1156,7 +1170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1646497948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5618481240b08944d8cf5e136ca91934, type: 3}
+  m_Script: {fileID: 11500000, guid: edcc80a90198a4c488b4ca1f659ef216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1741532142
@@ -1205,7 +1219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741532142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fa631e011ae466448e5065e9f5fb7c3, type: 3}
+  m_Script: {fileID: 11500000, guid: a09b1a60e2605a94eb2fa8bd0d6d1706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1741532145
@@ -1249,13 +1263,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1741532144}
         m_MethodName: LoadByIndex
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: level1
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
