@@ -62,6 +62,8 @@ public class GameState : MonoBehaviour, ICEventHandler
         text.GetComponent<MeshRenderer>().material = text.font.material;
 
         StartCoroutine(LoadLevel());
+
+        SoundController.PlaySound(Player.Instance.transform.position, "Sounds/VictorySound");
     }
 
     private IEnumerator LoadLevel()
