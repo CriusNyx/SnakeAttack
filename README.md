@@ -1,4 +1,4 @@
-Snake Attack
+# Snake Attack
 
 Snake Attack was developed for our Sophomore project at Oakland University
 
